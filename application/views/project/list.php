@@ -1,20 +1,23 @@
-        <div class="col-lg-6">
+    <h4><?php echo $district ?></h4>
+    <hr/>
+
+    <div class="col-lg-6">
             <table class="table table-striped ">
                 <thead>
                 <tr>
-                    <th>#</th>
                     <th>Name</th>
-                    <th>Address</th>
-                    <th>Area Covered</th>
+                    <th>Status</th>
+                    <th>Net Command Area</th>
+                    <th>Beneficiaries Population</th>
                 </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($projects as $projects_item): ?>
                         <tr>
-                            <td><?php echo $projects_item['s_no']; ?></td>
-                            <td><a href=<?php echo site_url('project/'.$projects_item['name'])?>"><?php echo $projects_item['name']; ?></a></td>
-                            <td><?php echo $projects_item['address']; ?></td>
-                            <td><?php echo $projects_item['area_covered']; ?></td>
+                            <td><a target="_blank" href="<?php echo site_url('project/'.$projects_item['id'])?>"><?php echo $projects_item['name']; ?></a></td>
+                            <td><?php echo $projects_item['status']; ?></td>
+                            <td><?php echo $projects_item['command_area']; ?></td>
+                            <td><?php echo $projects_item['population']; ?></td>
                         </tr>
                     <?php endforeach; ?>
             </table>

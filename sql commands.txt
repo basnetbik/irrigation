@@ -1,0 +1,22 @@
+CREATE DATABASE irrigation;
+
+CREATE TABLE project
+(
+  id int NOT NULL AUTO_INCREMENT,
+  name varchar(1000),
+  vdc varchar(1000),
+  district varchar(1000),
+  latitude varchar(1000),
+  longitude varchar(1000),
+  command_area int,
+  source_name varchar(1000),
+  source_type varchar(1000),
+  main_canal_length int,
+  design_discharge_intake varchar(1000),
+  population int,
+  household int,
+  total_project_cost int,
+  cost_per_ha int,
+  eirr int,
+  status varchar(1000)
+);

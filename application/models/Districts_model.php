@@ -8,47 +8,65 @@ class Districts_model extends CI_Model {
         $this->load->database();
     }
 
-    public function get_districts($slug = FALSE)
+    public function get_projects_summary()
     {
-//        if ($slug === FALSE)
-//        {
-//            $query = $this->db->get('districts');
-//            return $query->result_array();
-//        }
+        $this->db->select('district, status, command_area');
+        $this->db->from('project');
+        $query = $this->db->get();
+        $all_projects = $query->result_array();
 
-//        $query = $this->db->get_where('districts', array('slug' => $slug));
-//        return $query->row_array();
-        $list = [
-              ["s_no" => "1", "district" => "Kathmandu", "total_projects" => "fruit", "area_covered" => 1.22 ],
-              ["s_no" => "2", "district" => "Column content", "total_projects" => "fruit", "area_covered" => 1.22 ],
-              ["s_no" => "3", "district" => "Column content", "total_projects" => "fruit", "area_covered" => 1.22 ],
-              ["s_no" => "4", "district" => "Column content", "total_projects" => "fruit", "area_covered" => 1.22 ],
-              ["s_no" => "5", "district" => "Column content", "total_projects" => "fruit", "area_covered" => 1.22 ],
-              ["s_no" => "6", "district" => "Column content", "total_projects" => "fruit", "area_covered" => 1.22 ],
-              ["s_no" => "7", "district" => "Column content", "total_projects" => "fruit", "area_covered" => 1.22 ],
-              ["s_no" => "8", "district" => "Column content", "total_projects" => "fruit", "area_covered" => 1.22 ],
-            ];
-        return $list;
+        $districts_list = $this->get_districts_list();
+        $districts_dict = array();
+        for($i=0; $i<count($districts_list); $i++)
+        {
+            $districts_dict[$districts_list[$i]] = array(
+                's_no' => $i+1,
+                'district' => $districts_list[$i],
+                'total_projects' => 0,
+                'cultivable_command_area' => 0,
+                'total_irrigated_area' => 0
+            );
+        }
+
+        $status_list = $this->get_status_list();
+        $status_dict = array();
+        for($i=0; $i<count($status_list); $i++)
+        {
+            $status_dict[$status_list[$i]] = 0;
+        }
+
+        for($i=0; $i<count($all_projects); $i++)
+        {
+            $district = $all_projects[$i]['district'];
+            $command_area = $all_projects[$i]['command_area'];
+            $status = $all_projects[$i]['status'];
+            $districts_dict[$district]['total_projects'] += 1;
+            $districts_dict[$district]['cultivable_command_area'] += $command_area;
+            $districts_dict[$district]['total_irrigated_area'] += $command_area;
+
+            $status_dict[$status] += 1;
+        }
+
+        return array(
+            'districts_summary' => $districts_dict,
+            'status_summary' => $status_dict
+        );
     }
 
     public function get_projects($district)
     {
-        $list = [
-            ["s_no" => "1", "name" => "Test Project 1", "address" => "Kathmandu", "area_covered" => 1.22 ],
-            ["s_no" => "2", "name" => "Test Project", "address" => "Kathmandu", "area_covered" => 1.22 ],
-            ["s_no" => "3", "name" => "Test Project", "address" => "Kathmandu", "area_covered" => 1.22 ],
-            ["s_no" => "4", "name" => "Test Project", "address" => "Kathmandu", "area_covered" => 1.22 ],
-            ["s_no" => "5", "name" => "Test Project", "address" => "Kathmandu", "area_covered" => 1.22 ],
-            ["s_no" => "6", "name" => "Test Project", "address" => "Kathmandu", "area_covered" => 1.22 ],
-            ["s_no" => "7", "name" => "Test Project", "address" => "Kathmandu", "area_covered" => 1.22 ],
-            ["s_no" => "8", "name" => "Test Project", "address" => "Kathmandu", "area_covered" => 1.22 ]
-        ];
-        return $list;
+        $this->db->select('name, status, command_area, population, id, latitude, longitude');
+        $this->db->from('project');
+        $this->db->where('district', $district);
+        $query = $this->db->get();
+        $filtered_projects = $query->result_array();
+
+        return $filtered_projects;
     }
 
     public function get_districts_list()
     {
-        $list = [
+        $list = array(
             'Bhaktapur',
             'Dhading',
             'Lalitpur',
@@ -68,23 +86,53 @@ class Districts_model extends CI_Model {
             'Ramechhap',
             'Sarlahi',
             'Sindhuli'
-        ];
+        );
         return $list;
     }
 
-    public function get_project_details($project)
+    public function get_project_details($project_id)
     {
-        $details = [
-            "name" => 'Narayani Irrigation Project',
-            "address" => 'Bharatpur-1, Chitwan',
-            "area_covered" => "43,000 Hectars",
-            "location" => "34.90909,567.9787",
-            "command_area" => "54 msl",
-            "canal_length" => "56,000 km",
-            "population_benefited" => "60,000",
-            "household" => "4500"
-        ];
+        $this->db->select('*');
+        $this->db->from('project');
+        $this->db->where('id', $project_id);
+        $query = $this->db->get();
+        $details = $query->result_array();
 
-        return $details;
+        return $details[0];
+    }
+
+    public function get_status_list()
+    {
+        $status_list = array(
+            'Construction Completed',
+            'Under Construction',
+            'Pipeline Project'
+        );
+
+        return $status_list;
+    }
+
+    public function set_project()
+    {
+        $data = array(
+            'name' => $this->input->post('name'),
+            'vdc' => $this->input->post('vdc'),
+            'district' => $this->input->post('district'),
+            'latitude' => $this->input->post('latitude'),
+            'longitude' => $this->input->post('longitude'),
+            'command_area' => $this->input->post('command_area'),
+            'source_name' => $this->input->post('source_name'),
+            'source_type' => $this->input->post('source_type'),
+            'main_canal_length' => $this->input->post('main_canal_length'),
+            'design_discharge_intake' => $this->input->post('design_discharge_intake'),
+            'population' => $this->input->post('population'),
+            'household' => $this->input->post('household'),
+            'total_project_cost' => $this->input->post('total_project_cost'),
+            'cost_per_ha' => $this->input->post('cost_per_ha'),
+            'eirr' => $this->input->post('eirr'),
+            'status' => $this->input->post('status'),
+        );
+
+        return $this->db->insert('project', $data);
     }
 }

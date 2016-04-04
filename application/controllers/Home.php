@@ -5,7 +5,6 @@ class Home extends CI_Controller {
     {
         parent::__construct();
 
-        //Loading url helper
         $this->load->helper('url_helper');
     }
 

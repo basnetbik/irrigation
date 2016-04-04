@@ -5,10 +5,14 @@
                 <div class="form-group">
                     <label for="district" class="col-lg-2 control-label">District</label>
                     <div class="col-lg-10">
-                        <select class="form-control" id="district">
-                            <option>All</option>
+                        <select class="form-control" id="district" name="district">
+                            <option value="all">All</option>
                             <?php foreach ($districts as $district_): ?>
-                                <option><?php echo $district_; ?></option>
+                                <option value="<?php echo $district_; ?>"
+                                    <?php if ($district == $district_): ?> selected="selected" <?php endif ?>
+                                >
+                                    <?php echo $district_; ?>
+                                </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -19,12 +23,13 @@
                     <label for="status" class="col-lg-2 control-label">Status</label>
                     <div class="col-lg-10">
                         <select class="form-control" id="status">
-                            <option>All</option>
-                            <option>Completed</option>
-                            <option>Under Construction</option>
-                            <option>Under Survey</option>
-                            <option>Proposed</option>
-                            <option>Planned</option>
+                            <option value="all">All</option>
+                            <?php foreach ($status as $status_): ?>
+                                <option value="<?php echo $status_; ?>"
+                                >
+                                    <?php echo $status_; ?>
+                                </option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                 </div>
