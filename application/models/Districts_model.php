@@ -53,11 +53,22 @@ class Districts_model extends CI_Model {
         );
     }
 
-    public function get_projects($district)
+    public function get_projects($district_filter=NULL, $status_filter=NULL, $name_filter=NULL)
     {
-        $this->db->select('name, status, command_area, population, id, latitude, longitude');
+        $this->db->select('name, status, command_area, population, id, latitude, longitude, district');
         $this->db->from('project');
-        $this->db->where('district', $district);
+        if($district_filter != NULL && $district_filter != 'all')
+        {
+            $this->db->where('district', $district_filter);
+        }
+        if($status_filter != NULL && $status_filter != 'all')
+        {
+            $this->db->where('status', $status_filter);
+        }
+        if($name_filter != NULL && trim($name_filter) != '')
+        {
+            $this->db->like('name', $name_filter);
+        }
         $query = $this->db->get();
         $filtered_projects = $query->result_array();
 

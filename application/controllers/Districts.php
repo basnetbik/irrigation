@@ -22,10 +22,28 @@ class Districts extends CI_Controller {
 
     public function projects($district)
     {
-        $data['district'] = $district;
-        $data['projects'] = $this->districts_model->get_projects($district);
+        $this->load->helper('form');
+
         $data['districts'] = $this->districts_model->get_districts_list();
-        $data['status'] = $this->districts_model->get_status_list();
+        $data['status_list'] = $this->districts_model->get_status_list();
+
+        if ($this->input->server('REQUEST_METHOD') == 'POST')
+        {
+            $district_filter = $this->input->post('district');
+            $status_filter = $this->input->post('status');
+            $name_filter = $this->input->post('name');
+            $data['projects'] = $this->districts_model->get_projects($district_filter, $status_filter, $name_filter);
+            $data['district'] = $district_filter;
+            $data['status'] = $status_filter;
+            $data['name'] = $name_filter;
+        }
+        else
+        {
+            $data['projects'] = $this->districts_model->get_projects($district);
+            $data['district'] = $district;
+            $data['status'] = 'all';
+            $data['name'] = '';
+        }
 
         $this->load->view('templates/header');
         $this->load->view('project/filter', $data);
@@ -35,10 +53,14 @@ class Districts extends CI_Controller {
 
     public function details($project_id)
     {
-        $data['project'] = 'test';
+        $this->load->helper('form');
+
         $data['details'] = $this->districts_model->get_project_details($project_id);
         $data['districts'] = $this->districts_model->get_districts_list();
+        $data['status_list'] = $this->districts_model->get_status_list();
         $data['district'] = $data['details']['district'];
+        $data['status'] = 'all';
+        $data['name'] = '';
 
         $this->load->view('templates/header');
         $this->load->view('project/filter', $data);

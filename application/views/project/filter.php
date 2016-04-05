@@ -1,50 +1,63 @@
 <div class="container">
     <div class="row">
         <div class="row">
-            <div class="col-lg-4">
-                <div class="form-group">
-                    <label for="district" class="col-lg-2 control-label">District</label>
-                    <div class="col-lg-10">
-                        <select class="form-control" id="district" name="district">
-                            <option value="all">All</option>
-                            <?php foreach ($districts as $district_): ?>
-                                <option value="<?php echo $district_; ?>"
-                                    <?php if ($district == $district_): ?> selected="selected" <?php endif ?>
-                                >
-                                    <?php echo $district_; ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="form-group">
-                    <label for="status" class="col-lg-2 control-label">Status</label>
-                    <div class="col-lg-10">
-                        <select class="form-control" id="status">
-                            <option value="all">All</option>
-                            <?php foreach ($status as $status_): ?>
-                                <option value="<?php echo $status_; ?>"
-                                >
-                                    <?php echo $status_; ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <form class="" role="search">
+            <?php echo form_open('list/filter'); ?>
+
+                <div class="col-lg-4">
                     <div class="form-group">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search by name">
-                            <span class="input-group-btn">
-                                <button type="submit" class="btn btn-default">Submit</button>
-                            </span>
+                        <label for="district" class="col-lg-2 control-label">District</label>
+                        <div class="col-lg-10">
+                            <select class="form-control" id="district" name="district">
+                                <option value="all"
+                                    <?php if ($district == 'all'): ?> selected="selected" <?php endif ?>
+                                >
+                                    All
+                                </option>
+                                <?php foreach ($districts as $district_): ?>
+                                    <option value="<?php echo $district_; ?>"
+                                        <?php if ($district == $district_): ?> selected="selected" <?php endif ?>
+                                    >
+                                        <?php echo $district_; ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
                     </div>
-                </form>
-            </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="status" class="col-lg-2 control-label">Status</label>
+                        <div class="col-lg-10">
+                            <select class="form-control" id="status" name="status">
+                                <option value="all"
+                                    <?php if ($status == 'all'): ?> selected="selected" <?php endif ?>
+                                >
+                                    All
+                                </option>
+                                <?php foreach ($status_list  as $status_): ?>
+                                    <option value="<?php echo $status_; ?>"
+                                        <?php if ($status == $status_): ?> selected="selected" <?php endif ?>
+                                    >
+                                        <?php echo $status_; ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <form class="" role="search">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="text" name="name" value="<?php echo $name?>" class="form-control" placeholder="Search by name">
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-default">Submit</button>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            
+            </form>
         </div>
         <br/><br/>
