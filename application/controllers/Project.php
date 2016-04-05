@@ -173,6 +173,15 @@ class Project extends CI_Controller {
 
     public function delete($project_id)
     {
+        $is_admin = $this->operations->header($this);
+
+        if ($is_admin == false)
+        {
+            redirect('');
+        }
+
+        $this->project_model->delete_project($project_id);
+        $this->load->view('success/delete_project');
         
     }
 

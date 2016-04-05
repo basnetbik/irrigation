@@ -1,7 +1,10 @@
         <div class="col-lg-6">
             <div class="row">
                 <h4><?php echo $details['district']; ?>: <?php echo $details['name']; ?></h4>
-                <?php if($is_admin): ?><a target="_blank" href="<?php echo site_url('project/update/'.$details['id'])?>">Update Project</a> | <a href="">Delete Project</a><?php endif ?>
+                <?php if($is_admin): ?>
+                    <a href="<?php echo site_url('project/update/'.$details['id'])?>">Update Project</a>
+                    | <a href="<?php echo site_url('project/delete/'.$details['id'])?>">Delete Project</a>
+                <?php endif ?>
                 <hr>
                 <table style="font-size: 15px">
                     <tr>

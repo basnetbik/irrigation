@@ -24,7 +24,10 @@
                             <td><?php echo $projects_item['command_area']; ?></td>
                             <td><?php echo $projects_item['population']; ?></td>
                             <?php if($is_admin): ?>
-                                <td><a target="_blank" href="<?php echo site_url('project/update/'.$projects_item['id'])?>">Update</a> | <a href="">Delete</a></td>
+                                <td>
+                                    <a target="_blank" href="<?php echo site_url('project/update/'.$projects_item['id'])?>">Update</a>
+                                    | <a href="<?php echo site_url('project/delete/'.$projects_item['id'])?>">Delete</a>
+                                </td>
                             <?php endif ?>
                         </tr>
                     <?php endforeach; ?>
