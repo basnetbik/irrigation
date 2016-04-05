@@ -1,5 +1,5 @@
 <?php
-class Districts_model extends CI_Model {
+class Project_model extends CI_Model {
 
     public function __construct()
     {
@@ -123,7 +123,7 @@ class Districts_model extends CI_Model {
         return $status_list;
     }
 
-    public function set_project()
+    public function project_data()
     {
         $data = array(
             'name' => $this->input->post('name'),
@@ -144,6 +144,43 @@ class Districts_model extends CI_Model {
             'status' => $this->input->post('status'),
         );
 
+        return $data;
+    }
+
+    public function new_project()
+    {
+        $data = array(
+            'name' => '',
+            'vdc' => '',
+            'district' => '',
+            'latitude' => '',
+            'longitude' => '',
+            'command_area' => 0,
+            'source_name' => '',
+            'source_type' => '',
+            'main_canal_length' => 0,
+            'design_discharge_intake' => '',
+            'population' => 0,
+            'household' => 0,
+            'total_project_cost' => 0,
+            'cost_per_ha' => 0,
+            'eirr' => 0,
+            'status' => '',
+        );
+
+        return $data;
+    }
+
+    public function set_project()
+    {
+        $data = $this->project_data();
         return $this->db->insert('project', $data);
+    }
+
+    public function update_project($id)
+    {
+        $data = $this->project_data();
+        $this->db->where('id', $id);
+        $this->db->update('project', $data);
     }
 }

@@ -6,11 +6,13 @@ class Home extends CI_Controller {
         parent::__construct();
 
         $this->load->helper('url_helper');
+        $this->load->library("operations");
     }
+
 
     public function index()
     {
-        $this->load->view('templates/header');
+        $this->operations->header($this);
         $this->load->view('index');
         $this->load->view('templates/footer');
     }

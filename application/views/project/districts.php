@@ -1,8 +1,8 @@
 <div class="container">
     <div class="row">
-        <h4>Projects List </h4>
+        <h4>Projects List<?php if ($is_admin): ?> | <a target='_blank' href="<?php echo site_url('project/add')?>">Add New Project</a><?php endif ?></h4>
         <hr/>
-        <div class="col-lg-6">
+        <div class="col-lg-7">
             <table class="table table-striped ">
                 <thead>
                 <tr>
@@ -11,6 +11,9 @@
                     <th>Total Projects</th>
                     <th>Cultivable Command Area</th>
                     <th>Total Irrigated Area</th>
+                    <?php if ($is_admin): ?>
+                        <th>Operations</th>
+                    <?php endif ?>
                 </tr>
                 </thead>
                 <tbody>
@@ -22,13 +25,16 @@
                             <td><?php echo $districts_item['total_projects']; ?></td>
                             <td><?php echo $districts_item['cultivable_command_area']; ?></td>
                             <td><?php echo $districts_item['total_irrigated_area']; ?></td>
+                            <?php if ($is_admin): ?>
+                                <td><a href="">Edit Map Url</a></td>
+                            <?php endif ?>
                         </tr>
                     <?php endforeach; ?>
 
                 </tbody>
             </table>
         </div>
-        <div class="col-lg-6 frame">
+        <div class="col-lg-5 frame">
             <div id="chart" style="height: 300px; width: 100%">
                 <ul class="chart">
                     <li>

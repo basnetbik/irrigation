@@ -54,9 +54,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 // $route['translate_uri_dashes'] = FALSE;
 
 
-$route['login'] = 'admin';
-$route['districts'] = 'districts';
-$route['list/(:any)'] = 'districts/projects/$1';
-$route['project/add'] = 'districts/add';
-$route['project/(:any)'] = 'districts/details/$1';
+$route['admin'] = 'admin/login';
+$route['logout'] = 'admin/logout';
+$route['districts'] = 'project';
+$route['list/(:any)'] = 'project/projects/$1';
+$route['project/add'] = 'project/add';
+$route['project/update/(:any)'] = 'project/update/$1';
+$route['project/(:any)'] = 'project/details/$1';
 $route['default_controller'] = 'home';

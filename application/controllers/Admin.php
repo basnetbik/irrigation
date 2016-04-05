@@ -5,15 +5,52 @@ class Admin extends CI_Controller {
     {
         parent::__construct();
 
-        $this->load->model('admin_model');
         $this->load->helper('url_helper');
+        $this->load->model('admin_model');
+        $this->load->library("operations");
     }
 
-    public function index()
+    public function login()
     {
-        $this->load->view('templates/header');
-        $this->load->view('login');
+        $this->load->helper('form');
+        $this->load->library('form_validation');
+
+        $data['error_msg'] = '';
+
+        if ($this->input->server('REQUEST_METHOD') == 'POST')
+        {
+            $this->form_validation->set_error_delimiters('<div class="error" style="color: red;">', '</div>');
+            $this->form_validation->set_rules('username', 'Username', 'required');
+            $this->form_validation->set_rules('password', 'Password', 'required');
+
+            if ($this->form_validation->run() === TRUE)
+            {
+                $username = $this->input->post('username');
+                $password = $this->input->post('password');
+                $validate_status = $this->admin_model->validate_admin($username, $password);
+                if ($validate_status)
+                {
+                    redirect('');
+                }
+                else
+                {
+                    $data['error_msg'] = 'Invalid login credentials.';
+                }
+            }
+
+        }
+
+        $this->operations->header($this);
+        $this->load->view('login', $data);
         $this->load->view('templates/footer');
+    }
+
+    public function logout()
+    {
+        $this->load->library('session');
+        $this->session->sess_destroy();
+
+        redirect('');
     }
 
 }

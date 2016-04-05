@@ -2,7 +2,7 @@ CREATE DATABASE irrigation;
 
 CREATE TABLE project
 (
-  id int NOT NULL AUTO_INCREMENT,
+  id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   name varchar(1000),
   vdc varchar(1000),
   district varchar(1000),
@@ -20,3 +20,22 @@ CREATE TABLE project
   eirr int,
   status varchar(1000)
 );
+
+CREATE TABLE admin
+(
+    username varchar(100) NOT NULL PRIMARY KEY,
+    password varchar(100) NOT NULL
+);
+
+INSERT INTO admin
+VALUES ('test', 'test');
+
+CREATE TABLE IF NOT EXISTS `ci_sessions` (
+        `id` varchar(40) NOT NULL,
+        `ip_address` varchar(45) NOT NULL,
+        `timestamp` int(10) unsigned DEFAULT 0 NOT NULL,
+        `data` blob NOT NULL,
+        KEY `ci_sessions_timestamp` (`timestamp`)
+);
+
+ALTER TABLE ci_sessions ADD PRIMARY KEY (id);
