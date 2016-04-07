@@ -5,12 +5,13 @@ class Project extends CI_Controller {
     {
         parent::__construct();
 
-        $this->load->model('project_model');
-        $this->load->model('district_model');
         $this->load->helper('url_helper');
         $this->load->library('session');
-        $this->load->library("operations");
+
+        $this->load->model('district_model');
+        $this->load->model('project_model');
         $this->load->library("message");
+        $this->load->library("operations");
     }
 
     public function index()
@@ -24,32 +25,23 @@ class Project extends CI_Controller {
         $this->load->view('templates/footer');
     }
 
-    public function projects($district)
+    public function projects()
     {
         $this->load->helper('form');
 
         $data['districts'] = $this->district_model->get_districts_list();
         $data['status_list'] = $this->project_model->get_status_list();
-        $data['url'] = $this->district_model->get_district_details($district)['url'];
 
-        if ($this->input->server('REQUEST_METHOD') == 'POST')
-        {
-            $district_filter = $this->input->post('district');
-            $status_filter = $this->input->post('status');
-            $name_filter = $this->input->post('name');
-            $data['projects'] = $this->project_model->get_projects($district_filter, $status_filter, $name_filter);
-            $data['district'] = $district_filter;
-            $data['status'] = $status_filter;
-            $data['name'] = $name_filter;
-            $data['url'] = $this->district_model->get_district_details($district_filter)['url'];
-        }
-        else
-        {
-            $data['projects'] = $this->project_model->get_projects($district);
-            $data['district'] = $district;
-            $data['status'] = 'all';
-            $data['name'] = '';
-        }
+        $district_filter = $this->input->get('district', '', 'all');
+        $status_filter = $this->input->get('status', '', 'all');
+        $name_filter = $this->input->get('name', '', '');
+
+        $data['url'] = $this->district_model->get_district_details($district_filter)['url'];
+
+        $data['projects'] = $this->project_model->get_projects($district_filter, $status_filter, $name_filter);
+        $data['district'] = $district_filter;
+        $data['status'] = $status_filter;
+        $data['name'] = $name_filter;
 
         $data['is_admin'] = $this->operations->header($this);
         $this->load->view('project/filter', $data);

@@ -8,6 +8,12 @@ class Operations
 
         $that->load->view('templates/header');
 
+        $flash_data = $that->session->flashdata();
+        if ($flash_data)
+        {
+            $that->load->view('templates/flash_messages', $flash_data);
+        }
+
         $status = false;
 
         if ($that->session->userdata('is_admin') == true && $that->admin_model->validate_admin($that->session->userdata('username'))) {
@@ -15,12 +21,6 @@ class Operations
             $that->load->view('admin/header', $data);
 
             $status = true;
-        }
-
-        $flash_data = $that->session->flashdata();
-        if ($flash_data)
-        {
-            $that->load->view('templates/flash_messages', $flash_data);
         }
 
         return $status;

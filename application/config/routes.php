@@ -57,7 +57,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['admin'] = 'admin/login';
 $route['logout'] = 'admin/logout';
 $route['districts'] = 'project';
-$route['list/(:any)'] = 'project/projects/$1';
+$route['projects'] = 'project/projects';
 $route['project/add'] = 'project/add';
 $route['project/update/(:any)'] = 'project/update/$1';
 $route['project/delete/(:any)'] = 'project/delete/$1';

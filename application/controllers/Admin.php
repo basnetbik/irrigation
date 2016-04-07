@@ -5,24 +5,23 @@ class Admin extends CI_Controller {
     {
         parent::__construct();
 
-        $this->load->library("session");
         $this->load->helper('url_helper');
+        $this->load->library("session");
+
         $this->load->model('admin_model');
-        $this->load->library("operations");
         $this->load->library("message");
+        $this->load->library("operations");
     }
 
     public function login()
     {
         if ($this->session->userdata('is_admin') == TRUE)
         {
-            redirect('');
+            redirect('districts');
         }
 
         $this->load->helper('form');
         $this->load->library('form_validation');
-
-        $data['error_msg'] = '';
 
         if ($this->input->server('REQUEST_METHOD') == 'POST')
         {
@@ -49,7 +48,7 @@ class Admin extends CI_Controller {
         }
 
         $this->operations->header($this);
-        $this->load->view('admin/login', $data);
+        $this->load->view('admin/login');
         $this->load->view('templates/footer');
     }
 

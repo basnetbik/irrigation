@@ -26,7 +26,7 @@
                     <?php foreach ($districts as $districts_item): ?>
                         <tr>
                             <td><?php echo $districts_item['s_no']; ?></td>
-                            <td><a target="_blank" href="<?php echo site_url('list/'.$districts_item['district'])?>"><?php echo $districts_item['district']; ?></a></td>
+                            <td><a target="_blank" href="<?php echo site_url('projects/?district='.$districts_item['district'])?>"><?php echo $districts_item['district']; ?></a></td>
                             <td><?php echo $districts_item['total_projects']; ?></td>
                             <td><?php echo $districts_item['cultivable_command_area']; ?></td>
                             <td><?php echo $districts_item['total_irrigated_area']; ?></td>

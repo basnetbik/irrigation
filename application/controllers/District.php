@@ -9,8 +9,8 @@ class District extends CI_Controller
         $this->load->helper('url_helper');
 
         $this->load->model('district_model');
-        $this->load->library("operations");
         $this->load->library("message");
+        $this->load->library("operations");
     }
 
     public function update($district)
