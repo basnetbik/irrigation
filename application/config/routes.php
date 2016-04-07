@@ -62,4 +62,5 @@ $route['project/add'] = 'project/add';
 $route['project/update/(:any)'] = 'project/update/$1';
 $route['project/delete/(:any)'] = 'project/delete/$1';
 $route['project/(:any)'] = 'project/details/$1';
+$route['district/update/(:any)'] = 'district/update/$1';
 $route['default_controller'] = 'home';

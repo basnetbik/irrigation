@@ -24,11 +24,12 @@ CREATE TABLE project
 CREATE TABLE admin
 (
     username varchar(100) NOT NULL PRIMARY KEY,
-    password varchar(100) NOT NULL
+    password varchar(500) NOT NULL
 );
 
 INSERT INTO admin
-VALUES ('test', 'test');
+VALUES ('test', '18a4daafef250ee59a60e5a2def1573a88b396c3db768246ddda2d0f53424c0f2dbe324d83b3e4f79cc72f6ffb0b4e0b44799e18bff017fd594bc4d3bad50c45');
+
 
 CREATE TABLE IF NOT EXISTS `ci_sessions` (
         `id` varchar(40) NOT NULL,
@@ -41,9 +42,42 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 ALTER TABLE ci_sessions ADD PRIMARY KEY (id);
 
 
-//table for district+url
-//password encrypt
+CREATE TABLE district
+(
+    district varchar(100) NOT NULL PRIMARY KEY,
+    url varchar(500)
+);
+
+
+INSERT INTO district VALUES
+('Bhaktapur', 'https://www.google.com/fusiontables/embedviz?q=select+col5+from+1tZDU2XMUJVWoMEcvM14sVjJfRwCuHDLcrYDNqjd2&amp;viz=MAP&amp;h=false&amp;lat=26.967715598822547&amp;lng=85.13802171484372&amp;t=1&amp;z=11&amp;l=col5&amp;y=2&amp;tmplt=2&amp;hml=KML'),
+('Dhading', 'https://www.google.com/fusiontables/embedviz?q=select+col5+from+1tZDU2XMUJVWoMEcvM14sVjJfRwCuHDLcrYDNqjd2&amp;viz=MAP&amp;h=false&amp;lat=26.967715598822547&amp;lng=85.13802171484372&amp;t=1&amp;z=11&amp;l=col5&amp;y=2&amp;tmplt=2&amp;hml=KML'),
+('Lalitpur', 'https://www.google.com/fusiontables/embedviz?q=select+col5+from+1tZDU2XMUJVWoMEcvM14sVjJfRwCuHDLcrYDNqjd2&amp;viz=MAP&amp;h=false&amp;lat=26.967715598822547&amp;lng=85.13802171484372&amp;t=1&amp;z=11&amp;l=col5&amp;y=2&amp;tmplt=2&amp;hml=KML'),
+('Kathmandu', 'https://www.google.com/fusiontables/embedviz?q=select+col5+from+1tZDU2XMUJVWoMEcvM14sVjJfRwCuHDLcrYDNqjd2&amp;viz=MAP&amp;h=false&amp;lat=26.967715598822547&amp;lng=85.13802171484372&amp;t=1&amp;z=11&amp;l=col5&amp;y=2&amp;tmplt=2&amp;hml=KML'),
+('Kavrepalanchok', 'https://www.google.com/fusiontables/embedviz?q=select+col5+from+1tZDU2XMUJVWoMEcvM14sVjJfRwCuHDLcrYDNqjd2&amp;viz=MAP&amp;h=false&amp;lat=26.967715598822547&amp;lng=85.13802171484372&amp;t=1&amp;z=11&amp;l=col5&amp;y=2&amp;tmplt=2&amp;hml=KML'),
+('Nuwakot', 'https://www.google.com/fusiontables/embedviz?q=select+col5+from+1tZDU2XMUJVWoMEcvM14sVjJfRwCuHDLcrYDNqjd2&amp;viz=MAP&amp;h=false&amp;lat=26.967715598822547&amp;lng=85.13802171484372&amp;t=1&amp;z=11&amp;l=col5&amp;y=2&amp;tmplt=2&amp;hml=KML'),
+('Rasuwa', 'https://www.google.com/fusiontables/embedviz?q=select+col5+from+1tZDU2XMUJVWoMEcvM14sVjJfRwCuHDLcrYDNqjd2&amp;viz=MAP&amp;h=false&amp;lat=26.967715598822547&amp;lng=85.13802171484372&amp;t=1&amp;z=11&amp;l=col5&amp;y=2&amp;tmplt=2&amp;hml=KML'),
+('Sindhupalchok', 'https://www.google.com/fusiontables/embedviz?q=select+col5+from+1tZDU2XMUJVWoMEcvM14sVjJfRwCuHDLcrYDNqjd2&amp;viz=MAP&amp;h=false&amp;lat=26.967715598822547&amp;lng=85.13802171484372&amp;t=1&amp;z=11&amp;l=col5&amp;y=2&amp;tmplt=2&amp;hml=KML'),
+('Bara', 'https://www.google.com/fusiontables/embedviz?q=select+col5+from+1tZDU2XMUJVWoMEcvM14sVjJfRwCuHDLcrYDNqjd2&amp;viz=MAP&amp;h=false&amp;lat=26.967715598822547&amp;lng=85.13802171484372&amp;t=1&amp;z=11&amp;l=col5&amp;y=2&amp;tmplt=2&amp;hml=KML'),
+('Chitwan', 'https://www.google.com/fusiontables/embedviz?q=select+col5+from+1tZDU2XMUJVWoMEcvM14sVjJfRwCuHDLcrYDNqjd2&amp;viz=MAP&amp;h=false&amp;lat=26.967715598822547&amp;lng=85.13802171484372&amp;t=1&amp;z=11&amp;l=col5&amp;y=2&amp;tmplt=2&amp;hml=KML'),
+('Makwanpur', 'https://www.google.com/fusiontables/embedviz?q=select+col5+from+1tZDU2XMUJVWoMEcvM14sVjJfRwCuHDLcrYDNqjd2&amp;viz=MAP&amp;h=false&amp;lat=26.967715598822547&amp;lng=85.13802171484372&amp;t=1&amp;z=11&amp;l=col5&amp;y=2&amp;tmplt=2&amp;hml=KML'),
+('Parsa', 'https://www.google.com/fusiontables/embedviz?q=select+col5+from+1tZDU2XMUJVWoMEcvM14sVjJfRwCuHDLcrYDNqjd2&amp;viz=MAP&amp;h=false&amp;lat=26.967715598822547&amp;lng=85.13802171484372&amp;t=1&amp;z=11&amp;l=col5&amp;y=2&amp;tmplt=2&amp;hml=KML'),
+('Rautahat', 'https://www.google.com/fusiontables/embedviz?q=select+col5+from+1tZDU2XMUJVWoMEcvM14sVjJfRwCuHDLcrYDNqjd2&amp;viz=MAP&amp;h=false&amp;lat=26.967715598822547&amp;lng=85.13802171484372&amp;t=1&amp;z=11&amp;l=col5&amp;y=2&amp;tmplt=2&amp;hml=KML'),
+('Dhanusa', 'https://www.google.com/fusiontables/embedviz?q=select+col5+from+1tZDU2XMUJVWoMEcvM14sVjJfRwCuHDLcrYDNqjd2&amp;viz=MAP&amp;h=false&amp;lat=26.967715598822547&amp;lng=85.13802171484372&amp;t=1&amp;z=11&amp;l=col5&amp;y=2&amp;tmplt=2&amp;hml=KML'),
+('Dolakha', 'https://www.google.com/fusiontables/embedviz?q=select+col5+from+1tZDU2XMUJVWoMEcvM14sVjJfRwCuHDLcrYDNqjd2&amp;viz=MAP&amp;h=false&amp;lat=26.967715598822547&amp;lng=85.13802171484372&amp;t=1&amp;z=11&amp;l=col5&amp;y=2&amp;tmplt=2&amp;hml=KML'),
+('Mahottari', 'https://www.google.com/fusiontables/embedviz?q=select+col5+from+1tZDU2XMUJVWoMEcvM14sVjJfRwCuHDLcrYDNqjd2&amp;viz=MAP&amp;h=false&amp;lat=26.967715598822547&amp;lng=85.13802171484372&amp;t=1&amp;z=11&amp;l=col5&amp;y=2&amp;tmplt=2&amp;hml=KML'),
+('Ramechhap', 'https://www.google.com/fusiontables/embedviz?q=select+col5+from+1tZDU2XMUJVWoMEcvM14sVjJfRwCuHDLcrYDNqjd2&amp;viz=MAP&amp;h=false&amp;lat=26.967715598822547&amp;lng=85.13802171484372&amp;t=1&amp;z=11&amp;l=col5&amp;y=2&amp;tmplt=2&amp;hml=KML'),
+('Sarlahi', 'https://www.google.com/fusiontables/embedviz?q=select+col5+from+1tZDU2XMUJVWoMEcvM14sVjJfRwCuHDLcrYDNqjd2&amp;viz=MAP&amp;h=false&amp;lat=26.967715598822547&amp;lng=85.13802171484372&amp;t=1&amp;z=11&amp;l=col5&amp;y=2&amp;tmplt=2&amp;hml=KML'),
+('Sindhuli', 'https://www.google.com/fusiontables/embedviz?q=select+col5+from+1tZDU2XMUJVWoMEcvM14sVjJfRwCuHDLcrYDNqjd2&amp;viz=MAP&amp;h=false&amp;lat=26.967715598822547&amp;lng=85.13802171484372&amp;t=1&amp;z=11&amp;l=col5&amp;y=2&amp;tmplt=2&amp;hml=KML'),
+('all', 'https://www.google.com/fusiontables/embedviz?q=select+col5+from+1tZDU2XMUJVWoMEcvM14sVjJfRwCuHDLcrYDNqjd2&amp;viz=MAP&amp;h=false&amp;lat=26.967715598822547&amp;lng=85.13802171484372&amp;t=1&amp;z=11&amp;l=col5&amp;y=2&amp;tmplt=2&amp;hml=KML')
+;
+
+
+//district doesnt exist - 404 500 pages, project doesnt exist, error on CRUD, handle errors
+//query on district and status change
 //session-msg popups
-//common template for success
 //code refactor
 //codeigniter-config/refactor
+
+//import uuid
+//salt = uuid.uuid4().hex

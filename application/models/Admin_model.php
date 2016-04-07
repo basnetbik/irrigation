@@ -7,6 +7,7 @@ class Admin_model extends CI_Model {
 
         $this->load->database();
         $this->load->library('session');
+        $this->load->library('encryption');
     }
 
     public function validate_admin($username, $password=NULL)
@@ -16,7 +17,8 @@ class Admin_model extends CI_Model {
         $this->db->where('username', $username);
         if ($password != NULL)
         {
-            $this->db->where('password', $password);
+            $encrypted_password = $this->operations->encrypt_password($password);
+            $this->db->where('password', $encrypted_password);
         }
 
         $query = $this->db->get();

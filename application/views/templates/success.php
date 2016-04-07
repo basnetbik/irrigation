@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        <h4>Project successfully added.</h4>
+        <h4><?php echo $message; ?></h4>
         <br/>
         <a href="<?php echo site_url('project/add')?>">Add project</a>
         <br/><br/>

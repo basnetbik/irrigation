@@ -1,6 +1,11 @@
 <div class="container">
     <div class="row">
-        <h4>Projects List<?php if ($is_admin): ?> | <a target='_blank' href="<?php echo site_url('project/add')?>">Add New Project</a><?php endif ?></h4>
+        <h4>Projects List
+            <?php if ($is_admin): ?>
+                | <a target='_blank' href="<?php echo site_url('project/add')?>">Add New Project</a>
+                | <a traget="_blank" href="<?php echo site_url('district/update/all')?>">Edit Map Url</a>
+            <?php endif ?>
+        </h4>
         <hr/>
         <div class="col-lg-7">
             <table class="table table-striped ">
@@ -26,7 +31,7 @@
                             <td><?php echo $districts_item['cultivable_command_area']; ?></td>
                             <td><?php echo $districts_item['total_irrigated_area']; ?></td>
                             <?php if ($is_admin): ?>
-                                <td><a href="">Edit Map Url</a></td>
+                                <td><a target='_blank' href="<?php echo site_url('district/update/'.$districts_item['district']);?>">Edit Map Url</a></td>
                             <?php endif ?>
                         </tr>
                     <?php endforeach; ?>

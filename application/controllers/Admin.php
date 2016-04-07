@@ -8,10 +8,16 @@ class Admin extends CI_Controller {
         $this->load->helper('url_helper');
         $this->load->model('admin_model');
         $this->load->library("operations");
+        $this->load->library("session");
     }
 
     public function login()
     {
+        if ($this->session->userdata('is_admin') == TRUE)
+        {
+            redirect('');
+        }
+
         $this->load->helper('form');
         $this->load->library('form_validation');
 
@@ -41,7 +47,7 @@ class Admin extends CI_Controller {
         }
 
         $this->operations->header($this);
-        $this->load->view('login', $data);
+        $this->load->view('admin/login', $data);
         $this->load->view('templates/footer');
     }
 

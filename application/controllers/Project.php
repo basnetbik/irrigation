@@ -6,6 +6,7 @@ class Project extends CI_Controller {
         parent::__construct();
 
         $this->load->model('project_model');
+        $this->load->model('district_model');
         $this->load->helper('url_helper');
         $this->load->library('session');
         $this->load->library("operations");
@@ -26,8 +27,9 @@ class Project extends CI_Controller {
     {
         $this->load->helper('form');
 
-        $data['districts'] = $this->project_model->get_districts_list();
+        $data['districts'] = $this->district_model->get_districts_list();
         $data['status_list'] = $this->project_model->get_status_list();
+        $data['url'] = $this->district_model->get_district_details($district)['url'];
 
         if ($this->input->server('REQUEST_METHOD') == 'POST')
         {
@@ -38,6 +40,7 @@ class Project extends CI_Controller {
             $data['district'] = $district_filter;
             $data['status'] = $status_filter;
             $data['name'] = $name_filter;
+            $data['url'] = $this->district_model->get_district_details($district_filter)['url'];
         }
         else
         {
@@ -58,7 +61,7 @@ class Project extends CI_Controller {
         $this->load->helper('form');
 
         $data['details'] = $this->project_model->get_project_details($project_id);
-        $data['districts'] = $this->project_model->get_districts_list();
+        $data['districts'] = $this->district_model->get_districts_list();
         $data['status_list'] = $this->project_model->get_status_list();
         $data['district'] = $data['details']['district'];
         $data['status'] = 'all';
@@ -72,17 +75,13 @@ class Project extends CI_Controller {
 
     public function add()
     {
+        $is_admin = $this->operations->header($this);
+        $this->operations->admin_required($is_admin);
+
         $this->load->helper('form');
         $this->load->library('form_validation');
 
-        $is_admin = $this->operations->header($this);
-
-        if ($is_admin == false)
-        {
-            redirect('');
-        }
-
-        $data['districts'] = $this->project_model->get_districts_list();
+        $data['districts'] = $this->district_model->get_districts_list();
         $data['status'] = $this->project_model->get_status_list();
         $data['success'] = '';
         $data['update'] = false;
@@ -109,7 +108,8 @@ class Project extends CI_Controller {
             else
             {
                 $this->project_model->set_project();
-                $this->load->view('success/add_project');
+                $message = array('message' => 'Project successfully added.');
+                $this->load->view('templates/success', $message);
             }
         }
         else
@@ -123,19 +123,15 @@ class Project extends CI_Controller {
 
     public function update($project_id)
     {
+        $is_admin = $this->operations->header($this);
+        $this->operations->admin_required($is_admin);
+
         $this->load->helper('form');
         $this->load->library('form_validation');
 
-        $is_admin = $this->operations->header($this);
-
-        if ($is_admin == false)
-        {
-            redirect('');
-        }
-
         $data['details'] = $this->project_model->get_project_details($project_id);
         $data['update'] = true;
-        $data['districts'] = $this->project_model->get_districts_list();
+        $data['districts'] = $this->district_model->get_districts_list();
         $data['status'] = $this->project_model->get_status_list();
         $data['success'] = '';
 
@@ -160,7 +156,8 @@ class Project extends CI_Controller {
             else
             {
                 $this->project_model->update_project($project_id);
-                $this->load->view('success/update_project');
+                $message = array('message' => 'Project successfully updated.');
+                $this->load->view('template/success', $message);
             }
         }
         else
@@ -174,14 +171,11 @@ class Project extends CI_Controller {
     public function delete($project_id)
     {
         $is_admin = $this->operations->header($this);
-
-        if ($is_admin == false)
-        {
-            redirect('');
-        }
-
+        $this->operations->admin_required($is_admin);
+        
         $this->project_model->delete_project($project_id);
-        $this->load->view('success/delete_project');
+        $message = array('message' => 'Project successfully deleted.');
+        $this->load->view('templates/success', $message);
         
     }
 

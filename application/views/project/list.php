@@ -1,6 +1,9 @@
         <div class="col-lg-12 frame">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d14127.26978434482!2d85.31879115!3d27.7229222!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2snp!4v1457544362516" width="100%" height="300px" frameborder="0" style="border:0" allowfullscreen></iframe>
+            <iframe width=100% height="300" scrolling="no" frameborder="no"
+                    src="<?php echo $url; ?>"
+            ></iframe>
         </div>
+
         <div class="col-lg-12">
             <table class="table table-striped ">
                 <thead>

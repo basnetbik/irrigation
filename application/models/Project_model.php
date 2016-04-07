@@ -6,6 +6,7 @@ class Project_model extends CI_Model {
         parent::__construct();
 
         $this->load->database();
+        $this->load->model('district_model');
     }
 
     public function get_projects_summary()
@@ -15,7 +16,7 @@ class Project_model extends CI_Model {
         $query = $this->db->get();
         $all_projects = $query->result_array();
 
-        $districts_list = $this->get_districts_list();
+        $districts_list = $this->district_model->get_districts_list();
         $districts_dict = array();
         for($i=0; $i<count($districts_list); $i++)
         {
@@ -73,32 +74,6 @@ class Project_model extends CI_Model {
         $filtered_projects = $query->result_array();
 
         return $filtered_projects;
-    }
-
-    public function get_districts_list()
-    {
-        $list = array(
-            'Bhaktapur',
-            'Dhading',
-            'Lalitpur',
-            'Kathmandu',
-            'Kavrepalanchok',
-            'Nuwakot',
-            'Rasuwa',
-            'Sindhupalchok',
-            'Bara',
-            'Chitwan',
-            'Makwanpur',
-            'Parsa',
-            'Rautahat',
-            'Dhanusa',
-            'Dolakha',
-            'Mahottari',
-            'Ramechhap',
-            'Sarlahi',
-            'Sindhuli'
-        );
-        return $list;
     }
 
     public function get_project_details($project_id)
