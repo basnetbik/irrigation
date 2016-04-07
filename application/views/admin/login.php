@@ -3,7 +3,6 @@
     <div class="row">
         <div style="max-width: 500px;  padding: 20px; margin: 100px auto; background-color: rgba(255,255,255,0.4)">
             <div style=""><h4>Login</h4></div>
-            <div style="color: red;"><?php echo $error_msg; ?></div>
             <?php echo form_open('admin'); ?>
                 <div class="form-group">
                     <div class="input-group">

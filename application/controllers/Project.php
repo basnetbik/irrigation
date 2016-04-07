@@ -10,6 +10,7 @@ class Project extends CI_Controller {
         $this->load->helper('url_helper');
         $this->load->library('session');
         $this->load->library("operations");
+        $this->load->library("message");
     }
 
     public function index()
@@ -83,7 +84,6 @@ class Project extends CI_Controller {
 
         $data['districts'] = $this->district_model->get_districts_list();
         $data['status'] = $this->project_model->get_status_list();
-        $data['success'] = '';
         $data['update'] = false;
         $data['details'] = $this->project_model->new_project();
 
@@ -108,8 +108,8 @@ class Project extends CI_Controller {
             else
             {
                 $this->project_model->set_project();
-                $message = array('message' => 'Project successfully added.');
-                $this->load->view('templates/success', $message);
+                $this->message->success($this, 'Project successfully added.');
+                redirect('districts');
             }
         }
         else
@@ -156,8 +156,8 @@ class Project extends CI_Controller {
             else
             {
                 $this->project_model->update_project($project_id);
-                $message = array('message' => 'Project successfully updated.');
-                $this->load->view('template/success', $message);
+                $this->message->success($this, 'Project successfully updated.');
+                redirect('districts');
             }
         }
         else
@@ -174,9 +174,8 @@ class Project extends CI_Controller {
         $this->operations->admin_required($is_admin);
         
         $this->project_model->delete_project($project_id);
-        $message = array('message' => 'Project successfully deleted.');
-        $this->load->view('templates/success', $message);
-        
+        $this->message->success($this, 'Project successfully deleted.');
+        redirect('districts');
     }
 
 }

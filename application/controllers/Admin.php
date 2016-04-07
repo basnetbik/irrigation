@@ -5,10 +5,11 @@ class Admin extends CI_Controller {
     {
         parent::__construct();
 
+        $this->load->library("session");
         $this->load->helper('url_helper');
         $this->load->model('admin_model');
         $this->load->library("operations");
-        $this->load->library("session");
+        $this->load->library("message");
     }
 
     public function login()
@@ -36,11 +37,12 @@ class Admin extends CI_Controller {
                 $validate_status = $this->admin_model->validate_admin($username, $password);
                 if ($validate_status)
                 {
-                    redirect('');
+                    $this->message->success($this, 'Admin successfully logged in.');
+                    redirect('districts');
                 }
                 else
                 {
-                    $data['error_msg'] = 'Invalid login credentials.';
+                    $this->message->error($this, 'Invalid login credentials.');
                 }
             }
 
@@ -55,7 +57,6 @@ class Admin extends CI_Controller {
     {
         $this->load->library('session');
         $this->session->sess_destroy();
-
         redirect('');
     }
 

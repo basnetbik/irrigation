@@ -75,7 +75,6 @@ INSERT INTO district VALUES
 
 //district doesnt exist - 404 500 pages, project doesnt exist, error on CRUD, handle errors
 //query on district and status change
-//session-msg popups
 //code refactor
 //codeigniter-config/refactor
 

@@ -8,14 +8,22 @@ class Operations
 
         $that->load->view('templates/header');
 
+        $status = false;
+
         if ($that->session->userdata('is_admin') == true && $that->admin_model->validate_admin($that->session->userdata('username'))) {
             $data['admin'] = $that->session->userdata('username');
             $that->load->view('admin/header', $data);
 
-            return true;
+            $status = true;
         }
 
-        return false;
+        $flash_data = $that->session->flashdata();
+        if ($flash_data)
+        {
+            $that->load->view('templates/flash_messages', $flash_data);
+        }
+
+        return $status;
     }
 
     public function admin_required($is_admin)
@@ -39,4 +47,5 @@ class Operations
 
         return $salt . $hash;
     }
+    
 }

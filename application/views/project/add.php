@@ -4,10 +4,6 @@
             <div style="">
                 <h4><?php if($update): ;?>Update<?php else:; ?>Add New<?php endif; ?> Project</h4>
 
-                <?php if ($success): ?>
-                    <p style="color: green"><?php echo $success; ?></p>
-                <?php endif?>
-
                 <?php if($update): ?>
                     <?php echo form_open('project/update/'.$details['id']); ?>
                 <?php else: ?>

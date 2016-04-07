@@ -6,9 +6,11 @@ class District extends CI_Controller
     {
         parent::__construct();
 
-        $this->load->model('district_model');
         $this->load->helper('url_helper');
+
+        $this->load->model('district_model');
         $this->load->library("operations");
+        $this->load->library("message");
     }
 
     public function update($district)
@@ -34,8 +36,8 @@ class District extends CI_Controller
             else
             {
                 $this->district_model->update_district($district);
-                $message = array('message' => 'District successfully updated.');
-                $this->load->view('templates/success', $message);
+                $this->message->success($this, 'Map URL successfully updated.');
+                redirect('districts');
             }
         }
         else
