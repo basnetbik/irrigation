@@ -26,7 +26,7 @@
                             <?php if($is_admin): ?>
                                 <td>
                                     <a target="_blank" href="<?php echo site_url('project/update/'.$projects_item['id'])?>">Update</a>
-                                    | <a href="<?php echo site_url('project/delete/'.$projects_item['id'])?>">Delete</a>
+                                    | <a class="delete-project" href="<?php echo site_url('project/delete/'.$projects_item['id'])?>">Delete</a>
                                 </td>
                             <?php endif ?>
                         </tr>
@@ -37,3 +37,11 @@
     </div>
 
 </div>
+
+<script type="text/javascript">
+    $(document).on('click', '.delete-project', function(e){
+        if (!confirm('Do you really want to delete this project?')){
+            e.preventDefault();
+        }
+    });
+</script>

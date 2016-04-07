@@ -3,7 +3,7 @@
                 <h4><?php echo $details['district']; ?>: <?php echo $details['name']; ?></h4>
                 <?php if($is_admin): ?>
                     <a href="<?php echo site_url('project/update/'.$details['id'])?>">Update Project</a>
-                    | <a href="<?php echo site_url('project/delete/'.$details['id'])?>">Delete Project</a>
+                    | <a id="delete-project" href="<?php echo site_url('project/delete/'.$details['id'])?>">Delete Project</a>
                 <?php endif ?>
                 <hr>
                 <table style="font-size: 15px">
@@ -45,3 +45,11 @@
     </div>
 
 </div>
+
+<script type="text/javascript">
+    $(document).on('click', '#delete-project', function(e){
+        if (!confirm('Do you really want to delete this project?')){
+            e.preventDefault();
+        }
+    });
+</script>

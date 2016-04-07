@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div style="max-width: 1000px;  padding: 20px; margin: 20px auto; background-color: rgba(255,255,255,0.4)">
-            <div style=""><h4>Add New Project</h4>
+            <div style=""><h4><?php if($update): ;?>Update<?php else:; ?>Add New<?php endif; ?> Project</h4>
 
             <?php if ($success): ?>
                 <p style="color: green"><?php echo $success; ?></p>
@@ -108,7 +108,8 @@
                     <br/><br>
 
                     <div class="input-group">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary" id="submit" onclick="return confirm('Are you sure you want to submit this form?');">Submit</button>
+                        <a class="btn btn-warning" id="list-admin" href="<?php echo site_url('districts')?>">Cancel</a>
                     </div>
                 </div>
             </form>
@@ -116,3 +117,11 @@
     </div>
 
 </div>
+
+<script type="text/javascript">
+    $(document).on('click', '#list-admin', function(e){
+        if (!confirm('Do you really want to cancel this operation?')){
+            e.preventDefault();
+        }
+    });
+</script>

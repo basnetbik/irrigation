@@ -39,3 +39,11 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 );
 
 ALTER TABLE ci_sessions ADD PRIMARY KEY (id);
+
+
+//table for district+url
+//password encrypt
+//session-msg popups
+//common template for success
+//code refactor
+//codeigniter-config/refactor
