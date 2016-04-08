@@ -34,7 +34,7 @@ class Project extends CI_Controller {
         $name_filter = $this->input->get('name', '', '');
 
         $districts_list = $this->district_model->get_districts_list();
-        if (!in_array($district_filter, $districts_list)) {
+        if (!in_array($district_filter, $districts_list) and $district_filter != 'all') {
             $this->message->warning($this, 'The selected district is not under irrigation project.');
             redirect('districts');
         }

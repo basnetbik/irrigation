@@ -73,10 +73,10 @@ INSERT INTO district VALUES
 ;
 
 
-// 404 500 pages, error on CRUD, handle errors
+// 404 500 pages
 //form validation
 //code refactor
-//codeigniter-config/refactor
+//codeigniter-config
 
 //import uuid
 //salt = uuid.uuid4().hex
