@@ -31,8 +31,8 @@ class Admin extends CI_Controller {
 
             if ($this->form_validation->run() === TRUE)
             {
-                $username = $this->input->post('username');
-                $password = $this->input->post('password');
+                $username = $this->input->post('username', '', '');
+                $password = $this->input->post('password', '', '');
                 $validate_status = $this->admin_model->validate_admin($username, $password);
                 if ($validate_status)
                 {

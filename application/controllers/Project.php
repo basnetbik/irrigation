@@ -29,14 +29,25 @@ class Project extends CI_Controller {
     {
         $this->load->helper('form');
 
-        $data['districts'] = $this->district_model->get_districts_list();
-        $data['status_list'] = $this->project_model->get_status_list();
-
         $district_filter = $this->input->get('district', '', 'all');
         $status_filter = $this->input->get('status', '', 'all');
         $name_filter = $this->input->get('name', '', '');
 
+        $districts_list = $this->district_model->get_districts_list();
+        if (!in_array($district_filter, $districts_list)) {
+            $this->message->warning($this, 'The selected district is not under irrigation project.');
+            redirect('districts');
+        }
+
+        $district_has_project = $this->project_model->get_projects($district_filter);
+        if (!$district_has_project) {
+            $this->message->warning($this, 'The selected district has no projects.');
+            redirect('districts');
+        }
+
         $data['url'] = $this->district_model->get_district_details($district_filter)['url'];
+        $data['districts'] = $districts_list;
+        $data['status_list'] = $this->project_model->get_status_list();
 
         $data['projects'] = $this->project_model->get_projects($district_filter, $status_filter, $name_filter);
         $data['district'] = $district_filter;
@@ -53,7 +64,13 @@ class Project extends CI_Controller {
     {
         $this->load->helper('form');
 
-        $data['details'] = $this->project_model->get_project_details($project_id);
+        $details = $this->project_model->get_project_details($project_id);
+        if (!$details) {
+            $this->message->warning($this, 'Project not found.');
+            redirect('districts');
+        }
+
+        $data['details'] = $details;
         $data['districts'] = $this->district_model->get_districts_list();
         $data['status_list'] = $this->project_model->get_status_list();
         $data['district'] = $data['details']['district'];

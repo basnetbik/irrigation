@@ -5,33 +5,33 @@ class Admin_model extends CI_Model {
     {
         parent::__construct();
 
-        $this->load->database();
         $this->load->library('session');
         $this->load->library('encryption');
+
+        $this->load->model('crud_model');
+
+        $this->table = 'admin';
     }
 
     public function validate_admin($username, $password=NULL)
     {
-        $this->db->select('*');
-        $this->db->from('admin');
-        $this->db->where('username', $username);
+        $select = '*';
+        $specific_filter = array('username' => $username);
         if ($password != NULL)
         {
             $encrypted_password = $this->operations->encrypt_password($password);
-            $this->db->where('password', $encrypted_password);
+            $specific_filter['password'] = $encrypted_password;
         }
 
-        $query = $this->db->get();
-        if ($query->num_rows() > 0){
+        $result = $this->crud_model->read($this->table, $select, $specific_filter);
+        if (!empty($result)) {
             $admin_data = array(
                 'username' => $username,
                 'is_admin' => true
             );
             $this->session->set_userdata($admin_data);
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }

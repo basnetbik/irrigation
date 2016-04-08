@@ -21,7 +21,14 @@ class District extends CI_Controller
         $this->load->helper('form');
         $this->load->library('form_validation');
 
-        $data['details'] = $this->district_model->get_district_details($district);
+        $details = $this->district_model->get_district_details($district);
+
+        if (!$details) {
+            $this->message->warning($this, 'Update district for non-existing district.');
+            redirect('districts');
+        }
+
+        $data['details'] = $details;
         $data['district'] = $district;
 
         if ($this->input->server('REQUEST_METHOD') == 'POST')

@@ -73,7 +73,7 @@ INSERT INTO district VALUES
 ;
 
 
-//district doesnt exist - 404 500 pages, project doesnt exist, error on CRUD, handle errors
+// 404 500 pages, error on CRUD, handle errors
 //form validation
 //code refactor
 //codeigniter-config/refactor

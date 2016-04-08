@@ -1,25 +1,25 @@
 <?php
-class Project_model extends CI_Model {
+class Project_model extends CI_Model
+{
 
     public function __construct()
     {
         parent::__construct();
 
-        $this->load->database();
         $this->load->model('district_model');
+        $this->load->model('crud_model');
+
+        $this->table = 'project';
     }
 
     public function get_projects_summary()
     {
-        $this->db->select('district, status, command_area');
-        $this->db->from('project');
-        $query = $this->db->get();
-        $all_projects = $query->result_array();
+        $select = 'district, status, command_area';
+        $all_projects = $this->crud_model->read($this->table, $select);
 
         $districts_list = $this->district_model->get_districts_list();
         $districts_dict = array();
-        for($i=0; $i<count($districts_list); $i++)
-        {
+        for ($i=0; $i<count($districts_list); $i++) {
             $districts_dict[$districts_list[$i]] = array(
                 's_no' => $i+1,
                 'district' => $districts_list[$i],
@@ -31,13 +31,11 @@ class Project_model extends CI_Model {
 
         $status_list = $this->get_status_list();
         $status_dict = array();
-        for($i=0; $i<count($status_list); $i++)
-        {
+        for($i=0; $i<count($status_list); $i++) {
             $status_dict[$status_list[$i]] = 0;
         }
 
-        for($i=0; $i<count($all_projects); $i++)
-        {
+        for($i=0; $i<count($all_projects); $i++) {
             $district = $all_projects[$i]['district'];
             $command_area = $all_projects[$i]['command_area'];
             $status = $all_projects[$i]['status'];
@@ -56,35 +54,38 @@ class Project_model extends CI_Model {
 
     public function get_projects($district_filter=NULL, $status_filter=NULL, $name_filter=NULL)
     {
-        $this->db->select('name, status, command_area, population, id, latitude, longitude, district');
-        $this->db->from('project');
-        if($district_filter != NULL && $district_filter != 'all')
-        {
-            $this->db->where('district', $district_filter);
-        }
-        if($status_filter != NULL && $status_filter != 'all')
-        {
-            $this->db->where('status', $status_filter);
-        }
-        if($name_filter != NULL && trim($name_filter) != '')
-        {
-            $this->db->like('name', $name_filter);
-        }
-        $query = $this->db->get();
-        $filtered_projects = $query->result_array();
+        $select = 'name, status, command_area, population, id, latitude, longitude, district';
+        $specific_filter = array();
+        $similar_filter = array();
 
+        if ($district_filter != NULL && $district_filter != 'all') {
+            $specific_filter['district'] = $district_filter;
+        }
+
+        if ($status_filter != NULL && $status_filter != 'all') {
+            $specific_filter['status'] = $status_filter;
+        }
+
+        if ($name_filter != NULL && trim($name_filter) != '') {
+            $similar_filter['name'] = $name_filter;
+        }
+
+        $filtered_projects = $this->crud_model->read($this->table, $select, $specific_filter, $similar_filter);
         return $filtered_projects;
     }
 
     public function get_project_details($project_id)
     {
-        $this->db->select('*');
-        $this->db->from('project');
-        $this->db->where('id', $project_id);
-        $query = $this->db->get();
-        $details = $query->result_array();
+        $select = '*';
+        $specific_filter = array('id' => $project_id);
 
-        return $details[0];
+        $details = $this->crud_model->read($this->table, $select, $specific_filter);
+
+        if (empty($details)) {
+            return False;
+        } else {
+            return $details[0];
+        }
     }
 
     public function get_status_list()
@@ -101,22 +102,22 @@ class Project_model extends CI_Model {
     public function project_data()
     {
         $data = array(
-            'name' => $this->input->post('name'),
-            'vdc' => $this->input->post('vdc'),
-            'district' => $this->input->post('district'),
-            'latitude' => $this->input->post('latitude'),
-            'longitude' => $this->input->post('longitude'),
-            'command_area' => $this->input->post('command_area'),
-            'source_name' => $this->input->post('source_name'),
-            'source_type' => $this->input->post('source_type'),
-            'main_canal_length' => $this->input->post('main_canal_length'),
-            'design_discharge_intake' => $this->input->post('design_discharge_intake'),
-            'population' => $this->input->post('population'),
-            'household' => $this->input->post('household'),
-            'total_project_cost' => $this->input->post('total_project_cost'),
-            'cost_per_ha' => $this->input->post('cost_per_ha'),
-            'eirr' => $this->input->post('eirr'),
-            'status' => $this->input->post('status'),
+            'name' => $this->input->post('name', '', ''),
+            'vdc' => $this->input->post('vdc', '', ''),
+            'district' => $this->input->post('district', '', ''),
+            'latitude' => $this->input->post('latitude', '', ''),
+            'longitude' => $this->input->post('longitude', '', ''),
+            'command_area' => $this->input->post('command_area', '', 0),
+            'source_name' => $this->input->post('source_name', '', ''),
+            'source_type' => $this->input->post('source_type', '', ''),
+            'main_canal_length' => $this->input->post('main_canal_length', '', 0),
+            'design_discharge_intake' => $this->input->post('design_discharge_intake', '', ''),
+            'population' => $this->input->post('population', '', 0),
+            'household' => $this->input->post('household', '', 0),
+            'total_project_cost' => $this->input->post('total_project_cost', '', 0),
+            'cost_per_ha' => $this->input->post('cost_per_ha', '', 0),
+            'eirr' => $this->input->post('eirr', '', 0),
+            'status' => $this->input->post('status', '', ''),
         );
 
         return $data;
@@ -149,19 +150,19 @@ class Project_model extends CI_Model {
     public function set_project()
     {
         $data = $this->project_data();
-        return $this->db->insert('project', $data);
+        $this->crud_model->create($this->table, $data);
     }
 
     public function update_project($id)
     {
         $data = $this->project_data();
-        $this->db->where('id', $id);
-        $this->db->update('project', $data);
+        $specific_filter = array('id' => $id);
+        $this->crud_model->update($this->table, $specific_filter, $data);
     }
 
     public function delete_project($id)
     {
-        $this->db->where('id', $id);
-        $this->db->delete('project');
+        $this->crud_model->delete($this->table, $id);
     }
+
 }

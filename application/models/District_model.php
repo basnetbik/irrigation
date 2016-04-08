@@ -1,37 +1,34 @@
 <?php
-class District_model extends CI_Model {
+class District_model extends CI_Model
+{
 
     public function __construct()
     {
         parent::__construct();
 
-        $this->load->database();
+        $this->load->model('crud_model');
+
+        $this->table = 'district';
     }
 
     public function get_district_details($district)
     {
-        $this->db->select('*');
-        $this->db->from('district');
-        $this->db->where('district', $district);
+        $select = '*';
+        $specific_filter = array('district' => $district);
+        $details = $this->crud_model->read($this->table, $select, $specific_filter);
 
-        $query = $this->db->get();
-        $details = $query->result_array();
-
-        if( empty( $details ) )
-        {
-            return array('district' => '', 'url' => '');
+        if (empty( $details )) {
+            return False;
+        } else {
+            return $details[0];
         }
-        return $details[0];
     }
 
     public function update_district($district)
     {
-        $data = array(
-            'url' => $this->input->post('url')
-        );
-
-        $this->db->where('district', $district);
-        $this->db->update('district', $data);
+        $data = array('url' => $this->input->post('url', '', ''));
+        $specific_filter = array('district' => $district);
+        $this->crud_model->update($this->table, $specific_filter, $data);
     }
 
     public function get_districts_list()

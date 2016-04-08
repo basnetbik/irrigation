@@ -1,7 +1,7 @@
 <?php //if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Message
 {
-    private function set_message($that, $message, $status=1)
+    private function set_message($that, $message, $status='success')
     {
 //        success -> 1
 //        error -> 0
@@ -13,12 +13,16 @@ class Message
 
     public function success($that, $message)
     {
-        $this->set_message($that, $message, 1);
+        $this->set_message($that, $message, 'success');
     }
 
     public function error($that, $message)
     {
-        $this->set_message($that, $message, 0);
+        $this->set_message($that, $message, 'error');
     }
 
+    public function warning($that, $message)
+    {
+        $this->set_message($that, $message, 'warning');
+    }
 }
