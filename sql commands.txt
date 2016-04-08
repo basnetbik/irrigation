@@ -73,8 +73,6 @@ INSERT INTO district VALUES
 ;
 
 
-// 404 500 pages
-//form validation
 //code refactor
 //codeigniter-config
 

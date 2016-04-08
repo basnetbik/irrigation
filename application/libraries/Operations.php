@@ -1,6 +1,7 @@
-<?php //if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class Operations
-{
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Operations {
     public function header($that)
     {
         $that->load->library('session');

@@ -1,6 +1,5 @@
 <?php
-class Project_model extends CI_Model
-{
+class Project_model extends CI_Model {
 
     public function __construct()
     {

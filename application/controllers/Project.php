@@ -10,8 +10,8 @@ class Project extends CI_Controller {
 
         $this->load->model('district_model');
         $this->load->model('project_model');
-        $this->load->library("message");
-        $this->load->library("operations");
+        $this->load->library('message');
+        $this->load->library('operations');
     }
 
     public function index()
@@ -100,16 +100,7 @@ class Project extends CI_Controller {
         {
             $this->form_validation->set_error_delimiters('<div class="error" style="color: red;">', '</div>');
 
-            $this->form_validation->set_rules('name', 'Name of the Project', 'required');
-            $this->form_validation->set_rules('command_area', 'Command Area', 'integer');
-            $this->form_validation->set_rules('main_canal_length', 'Main Canal Length', 'integer');
-            $this->form_validation->set_rules('population', 'Population', 'integer');
-            $this->form_validation->set_rules('household', 'Household', 'integer');
-            $this->form_validation->set_rules('total_project_cost', 'Total Project Cost', 'integer');
-            $this->form_validation->set_rules('cost_per_ha', 'Cost per Ha', 'integer');
-            $this->form_validation->set_rules('eirr', 'EIRR', 'integer');
-
-            if ($this->form_validation->run() === FALSE)
+            if ($this->form_validation->run('project') === FALSE)
             {
                 $this->load->view('project/add', $data);
 
@@ -148,19 +139,9 @@ class Project extends CI_Controller {
         {
             $this->form_validation->set_error_delimiters('<div class="error" style="color: red;">', '</div>');
 
-            $this->form_validation->set_rules('name', 'Name of the Project', 'required');
-            $this->form_validation->set_rules('command_area', 'Command Area', 'integer');
-            $this->form_validation->set_rules('main_canal_length', 'Main Canal Length', 'integer');
-            $this->form_validation->set_rules('population', 'Population', 'integer');
-            $this->form_validation->set_rules('household', 'Household', 'integer');
-            $this->form_validation->set_rules('total_project_cost', 'Total Project Cost', 'integer');
-            $this->form_validation->set_rules('cost_per_ha', 'Cost per Ha', 'integer');
-            $this->form_validation->set_rules('eirr', 'EIRR', 'integer');
-
-            if ($this->form_validation->run() === FALSE)
+            if ($this->form_validation->run('project') === FALSE)
             {
                 $this->load->view('project/add', $data);
-
             }
             else
             {

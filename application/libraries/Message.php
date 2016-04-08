@@ -1,6 +1,7 @@
-<?php //if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class Message
-{
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Message {
     private function set_message($that, $message, $status='success')
     {
 //        success -> 1

@@ -1,6 +1,5 @@
 <?php
-class Crud_model extends CI_Model
-{
+class Crud_model extends CI_Model {
 
     public function __construct()
     {
