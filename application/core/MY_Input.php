@@ -1,6 +1,5 @@
 <?php
-class MY_Input extends CI_Input
-{
+class MY_Input extends CI_Input {
     function get($index = NULL, $xss_clean = FALSE, $default_value = NULL)
     {
         // Check if a field has been provided

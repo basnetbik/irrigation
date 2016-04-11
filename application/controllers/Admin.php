@@ -25,8 +25,6 @@ class Admin extends CI_Controller {
 
         if ($this->input->server('REQUEST_METHOD') == 'POST')
         {
-            $this->form_validation->set_error_delimiters('<div class="error" style="color: red;">', '</div>');
-
             if ($this->form_validation->run('admin') === TRUE)
             {
                 $username = $this->input->post('username', '', '');

@@ -108,11 +108,13 @@ $config = array(
             'field' => 'url',
             'label' => 'Map url',
             'rules' => array(
-                'required|trim',
-                function($value) {
-                    
-                }
-            )
+                'trim',
+                'required',
+                'map_url'
+            ),
+            'errors' => array(
+                'map_url' => 'Invalid Map URL.',
+            ),
         )
     )
 );
