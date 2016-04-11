@@ -1,3 +1,6 @@
+body{
+    font-size: 14px;
+}
 label.col-lg-2.control-label{
     font-size: 17px;
     margin-top: 2px;
@@ -58,4 +61,34 @@ label.col-lg-2.control-label{
 
 .navbar{
     position: inherit;
+}
+
+.cat-title{
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.empty{
+    height: 20px;
+}
+
+.panel-footer{
+    background-color: #2196F3;
+    color: white;
+}
+
+.container{
+    min-height: 85vh;
+}
+
+.message{
+    margin-top: -25px;
+}
+
+.message p{
+    margin-top: 5px;
+}
+
+.message h6{
+    color: white;
 }
