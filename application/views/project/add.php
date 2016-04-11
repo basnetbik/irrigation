@@ -40,6 +40,13 @@
                         <br/><br/>
 
                         <div class="input-group">
+                            <label>Map Url</label>
+                            <?php echo form_error('url'); ?>
+                            <input type="text" class="form-control" name="url" value="<?php echo set_value('url', $details['url']); ?>" placeholder="Map URL">
+                        </div>
+                        <br/><br/>
+
+                        <div class="input-group">
                             <label>Command Area</label>
                             <?php echo form_error('command_area'); ?>
                             <input type="text" name="command_area" class="form-control" value="<?php echo set_value('command_area', $details['command_area']); ?>" placeholder="Command Area">

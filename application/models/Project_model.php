@@ -105,6 +105,7 @@ class Project_model extends CI_Model {
             'vdc' => $this->input->post('vdc', '', ''),
             'district' => $this->input->post('district', '', ''),
             'latitude' => $this->input->post('latitude', '', ''),
+            'url' => $this->input->post('url', '', ''),
             'longitude' => $this->input->post('longitude', '', ''),
             'command_area' => $this->input->post('command_area', '', 0),
             'source_name' => $this->input->post('source_name', '', ''),
@@ -130,6 +131,7 @@ class Project_model extends CI_Model {
             'district' => '',
             'latitude' => '',
             'longitude' => '',
+            'url' => '',
             'command_area' => 0,
             'source_name' => '',
             'source_type' => '',
@@ -161,7 +163,7 @@ class Project_model extends CI_Model {
 
     public function delete_project($id)
     {
-        $this->crud_model->delete($this->table, $id);
+        $this->crud_model->delete($this->table, 'id', $id);
     }
 
 }

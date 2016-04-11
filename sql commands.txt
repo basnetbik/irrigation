@@ -3,22 +3,23 @@ CREATE DATABASE irrigation;
 CREATE TABLE project
 (
   id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name varchar(1000),
-  vdc varchar(1000),
-  district varchar(1000),
-  latitude varchar(1000),
-  longitude varchar(1000),
+  name varchar(200),
+  vdc varchar(200),
+  district varchar(100),
+  latitude varchar(50),
+  longitude varchar(50),
+  url varchar(500),
   command_area int,
-  source_name varchar(1000),
-  source_type varchar(1000),
+  source_name varchar(200),
+  source_type varchar(200),
   main_canal_length int,
-  design_discharge_intake varchar(1000),
+  design_discharge_intake varchar(200),
   population int,
   household int,
   total_project_cost int,
   cost_per_ha int,
   eirr int,
-  status varchar(1000)
+  status varchar(50)
 );
 
 CREATE TABLE admin

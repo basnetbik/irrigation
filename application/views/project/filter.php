@@ -67,7 +67,8 @@
         var district = $('#district').val();
         var status = $('#status').val();
         var name = $('#name').val();
-        var url = '?district=' + district + '&status=' + status + '&name=' + name;
+        var url = "<?php echo site_url('projects')?>";
+        url += '?district=' + district + '&status=' + status + '&name=' + name;
         window.location = url;
     }
     $(document).on('change', '#district', function(e){

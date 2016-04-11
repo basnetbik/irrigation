@@ -28,6 +28,11 @@ $config = array(
             'rules' => 'trim'
         ),
         array(
+            'field' => 'url',
+            'label' => 'URL',
+            'rules' => 'trim'
+        ),
+        array(
             'field' => 'command_area',
             'label' => 'Command Area',
             'rules' => 'integer',
@@ -103,7 +108,7 @@ $config = array(
             'field' => 'url',
             'label' => 'Map url',
             'rules' => array(
-                'required',
+                'required|trim',
                 function($value) {
                     
                 }

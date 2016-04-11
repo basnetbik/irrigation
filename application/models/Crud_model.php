@@ -37,9 +37,9 @@ class Crud_model extends CI_Model {
         $this->db->update($table, $data);
     }
 
-    public function delete($table, $id)
+    public function delete($table, $primary_key, $value)
     {
-        $this->db->where('id', $id);
+        $this->db->where(array( $primary_key => $value ));
         $this->db->delete($table);
     }
 
