@@ -45,7 +45,13 @@ class Project extends CI_Controller {
             redirect('districts');
         }
 
-        $data['url'] = $this->district_model->get_district_details($district_filter)['url'];
+        $district_detail = $this->district_model->get_district_details($district_filter);
+        if (!$district_detail) {
+            $data['url'] = $district_detail['url'];
+        } else {
+            $data['url'] = '';
+        }
+
         $data['districts'] = $districts_list;
         $data['status_list'] = $this->project_model->get_status_list();
 
@@ -162,7 +168,7 @@ class Project extends CI_Controller {
     {
         $is_admin = $this->operations->header($this);
         $this->operations->admin_required($is_admin);
-        
+
         $this->project_model->delete_project($project_id);
         $this->message->success($this, 'Project successfully deleted.');
         redirect('districts');
