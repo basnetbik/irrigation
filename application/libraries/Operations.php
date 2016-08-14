@@ -22,6 +22,8 @@ class Operations {
             $that->load->view('admin/header', $data);
 
             $status = true;
+        } else {
+            $that->load->view('admin/header_not');
         }
 
         return $status;

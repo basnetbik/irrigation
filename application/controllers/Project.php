@@ -47,9 +47,9 @@ class Project extends CI_Controller {
 
         $district_detail = $this->district_model->get_district_details($district_filter);
         if (!$district_detail) {
-            $data['url'] = $district_detail['url'];
-        } else {
             $data['url'] = '';
+        } else {
+            $data['url'] = $district_detail['url'];
         }
 
         $data['districts'] = $districts_list;

@@ -19,11 +19,13 @@ class Project_model extends CI_Model {
         $districts_list = $this->district_model->get_districts_list();
         $districts_dict = array();
         for ($i=0; $i<count($districts_list); $i++) {
+            $current_district = $districts_list[$i];
+            $current_command_area = $this->district_model->get_district_details($current_district, "command_area")["command_area"];
             $districts_dict[$districts_list[$i]] = array(
                 's_no' => $i+1,
-                'district' => $districts_list[$i],
+                'district' => $current_district,
                 'total_projects' => 0,
-                'cultivable_command_area' => 0,
+                'command_area' => $current_command_area,
                 'total_irrigated_area' => 0
             );
         }
@@ -31,23 +33,30 @@ class Project_model extends CI_Model {
         $status_list = $this->get_status_list();
         $status_dict = array();
         for($i=0; $i<count($status_list); $i++) {
-            $status_dict[$status_list[$i]] = 0;
+            $status_dict[$status_list[$i]] = array("no"=>0, "percent"=>0);
         }
 
-        for($i=0; $i<count($all_projects); $i++) {
+        $total_projects = count($all_projects);
+
+        for($i=0; $i<$total_projects; $i++) {
             $district = $all_projects[$i]['district'];
             $command_area = $all_projects[$i]['command_area'];
             $status = $all_projects[$i]['status'];
             $districts_dict[$district]['total_projects'] += 1;
-            $districts_dict[$district]['cultivable_command_area'] += $command_area;
             $districts_dict[$district]['total_irrigated_area'] += $command_area;
 
-            $status_dict[$status] += 1;
+            $status_dict[$status]["no"] += 1;
         }
+
+        for($i=0; $i<count($status_list); $i++) {
+            $status_dict[$status_list[$i]]["percent"] = ($status_dict[$status_list[$i]]["no"]/ $total_projects)*100;
+        }
+
+        $status_dict["total"] = array("no"=>$total_projects, "percent"=>100);
 
         return array(
             'districts_summary' => $districts_dict,
-            'status_summary' => $status_dict
+            'status_summary' => $status_dict,
         );
     }
 
@@ -102,6 +111,7 @@ class Project_model extends CI_Model {
     {
         $data = array(
             'name' => $this->input->post('name', '', ''),
+            'Program' => $this->input->post('Program', '', ''),
             'vdc' => $this->input->post('vdc', '', ''),
             'district' => $this->input->post('district', '', ''),
             'latitude' => $this->input->post('latitude', '', ''),
@@ -127,6 +137,7 @@ class Project_model extends CI_Model {
     {
         $data = array(
             'name' => '',
+            'Program' => '',
             'vdc' => '',
             'district' => '',
             'latitude' => '',

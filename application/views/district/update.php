@@ -4,13 +4,22 @@
             <div style="">
                 <h4>Update District | <?php echo $district; ?> </h4>
 
-                <?php echo form_open('district/update/'.$district); ?>
+                <?php echo form_open_multipart('district/update/'.$district); ?>
 
                 <div class="form-group" style="">
                     <div class="input-group">
                         <label>Map Url</label>
                         <?php echo form_error('url'); ?>
                         <input type="text" class="form-control" name="url" value="<?php echo set_value('url', $details['url']); ?>" placeholder="Map Url">
+                        <label>Description</label>
+                        <?php echo form_error('description'); ?>
+                        <input type="text" class="form-control" name="description" value="<?php echo set_value('description', $details['description']); ?>" placeholder="Description">
+                        <label>Command Area</label>
+                        <?php echo form_error('command_area'); ?>
+                        <input type="text" class="form-control" name="command_area" value="<?php echo set_value('command_area', $details['command_area']); ?>" placeholder="Command Area">
+                        <label>Image</label>
+                        <?php echo form_error('image'); ?>
+                        <input type="file" class="form-control" name="image" placeholder="Image">
                     </div>
                     <br/><br/>
 

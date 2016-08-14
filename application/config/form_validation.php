@@ -35,10 +35,10 @@ $config = array(
         array(
             'field' => 'command_area',
             'label' => 'Command Area',
-            'rules' => 'integer',
-            'errors' => array(
-                'integer' => '%s must be a number.',
-            ),
+            'rules' => 'numeric',
+//            'errors' => array(
+//                'integer' => '%s must be a number.',
+//            ),
         ),
         array(
             'field' => 'source_name',
@@ -53,7 +53,7 @@ $config = array(
         array(
             'field' => 'main_canal_length',
             'label' => 'Main Canal Length',
-            'rules' => 'integer',
+            'rules' => 'numeric',
         ),
         array(
             'field' => 'design_discharge_intake',
@@ -73,17 +73,17 @@ $config = array(
         array(
             'field' => 'total_project_cost',
             'label' => 'Total Project Cost',
-            'rules' => 'integer',
+            'rules' => 'numeric',
         ),
         array(
             'field' => 'cost_per_ha',
             'label' => 'Cost per Ha',
-            'rules' => 'integer'
+            'rules' => 'numeric'
         ),
         array(
             'field' => 'eirr',
             'label' => 'EIRR',
-            'rules' => 'integer'
+            'rules' => 'numeric'
         ),
         array(
             'field' => 'status',
@@ -110,11 +110,17 @@ $config = array(
             'rules' => array(
                 'trim',
                 'required',
-                'map_url'
-            ),
-            'errors' => array(
-                'map_url' => 'Invalid Map URL.',
-            ),
+            )
+        ),
+        array(
+            'field' => 'description',
+            'label' => 'Description',
+            'rules' => 'trim'
+        ),
+        array(
+            'field' => 'command_area',
+            'label' => 'Command Area',
+            'rules' => 'trim|numeric'
         )
     )
 );

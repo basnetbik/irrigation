@@ -10,9 +10,10 @@ class District_model extends CI_Model {
         $this->table = 'district';
     }
 
-    public function get_district_details($district)
+    public function get_district_details($district, $select=NULL)
     {
-        $select = '*';
+        if (!$select)
+            $select = '*';
         $specific_filter = array('district' => $district);
         $details = $this->crud_model->read($this->table, $select, $specific_filter);
 
@@ -25,7 +26,12 @@ class District_model extends CI_Model {
 
     public function update_district($district)
     {
-        $data = array('url' => $this->input->post('url', '', ''));
+        $data = array(
+            'url' => $this->input->post('url', '', ''),
+            'description' => $this->input->post('description', '', ''),
+            'command_area' => $this->input->post('command_area', '', ''),
+            'image' => $this->input->post('image', '', '')
+        );
         $specific_filter = array('district' => $district);
         $this->crud_model->update($this->table, $specific_filter, $data);
     }

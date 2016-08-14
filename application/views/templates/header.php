@@ -12,12 +12,6 @@
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header" style="height: 150px;">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
             <a class="navbar-brand" href="<?php echo site_url(); ?>">
                 <div class="row">
                     <div class="col-lg-4 col-xs-4">
@@ -31,6 +25,12 @@
                     </div>
                 </div>
             </a>
+        </div>
+        <div class="" style="float: right; color: #b7daff; text-align: right">
+            <h5 class="yellow" style="color: #fefb00">Contact Address</h5>
+            <div>Central Regional Irrigation Directorate</div>
+            <div>01 5535003, 01 5535002, 01 5539783</div>
+            <div>info@crid.gov.np</div>
         </div>
     </div>
 </nav>

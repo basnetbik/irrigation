@@ -35,12 +35,34 @@ class District extends CI_Controller {
             if ($this->form_validation->run('district') === FALSE)
             {
                 $this->load->view('district/update', $data);
-
             }
             else
             {
+                $config = array(
+                    'file_name' => $district,
+                    'upload_path' => "./static/images/uploads/",
+                    'allowed_types' => "gif|jpg|png|jpeg|pdf",
+                    'overwrite' => TRUE,
+                    'max_size' => "204800000", // Can be set to particular file size , here it is 2 MB(2048 Kb)
+                    'max_height' => "30000",
+                    'max_width' => "60000"
+                );
+                $this->load->library('upload', $config);
+
+                $msg = '';
+                if($this->upload->do_upload('image'))
+                {
+                    $data = array('upload_data' => $this->upload->data());
+                }
+                else
+                {
+                    $error = array('error' => $this->upload->display_errors());
+                    $msg .= $error['error'];
+                }
+
                 $this->district_model->update_district($district);
-                $this->message->success($this, 'Map URL successfully updated.');
+                $msg .= 'District successfully updated.';
+                $this->message->success($this, $msg);
                 redirect('districts');
             }
         }
